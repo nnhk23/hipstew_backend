@@ -19,7 +19,9 @@ def create_new_recipes
             name: recipe["title"],
             img_url: recipe["image"],
             instruction: recipe["instructions"],
-            # generateInstruction(recipe["analyzedInstructions"][0]["steps"])
+            # instruction: recipe["analyzedInstructions"][0]["steps"].map do |step|
+            #     "Step #{step["number"].to_s}: #{step["step"]}"
+            # end.join(''),
             time: recipe["readyInMinutes"],
             diet: recipe["diets"].join(", "),
             dish_type: recipe["dishTypes"].join(', '),
@@ -54,11 +56,12 @@ def create_ing_recipes(recipe, ingredient)
     )
 end
 
-# def generateInstruction(steps)
-#     # binding.pry
-#     steps.map do |step|
-#         "Step #{step["number"].to_s}: #{step["step"]}\n"
-#     end
-# end
+def generateInstruction(steps)
+    recipe_steps = steps.map do |step|
+        "Step #{step["number"].to_s}: #{step["step"]}\n"
+    end
+    return recipe_steps
+    # binding.pry
+end
 
 create_new_recipes
