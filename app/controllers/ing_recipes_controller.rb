@@ -1,0 +1,2 @@
+class IngRecipesController < ApplicationController
+end
