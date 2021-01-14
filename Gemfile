@@ -44,3 +44,4 @@ gem 'unirest'
 gem "pry"
 gem "require_all"
 gem "http"
+gem "active_model_serializers", "~> 0.10.12"
