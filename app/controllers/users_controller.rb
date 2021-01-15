@@ -1,19 +1,34 @@
 class UsersController < ApplicationController
-    skip_before_action :authorized, only: [:create, :login]
+    skip_before_action :authorized, only: [:create, :login, :update, :index, :destroy]
 
     def index
         users = User.all
-        render json: users, except: [:created_at, :updated_at]
+        render json: users
     end
 
     def create
         user = User.new(user_params)
         if user.save
             token = encode_token({user_id: user.id})
-            render json: {user: user, token: token}, except: [:created_at, :updated_at]
+            render json: {user: user, token: token}
         else
-            render json: user.errors, except: [:created_at, :updated_at]
+            render json: user.errors
         end
+    end
+
+    def update
+        user = User.find(params[:id])
+        if user.update(user_params)
+            render json: {user: user}
+        else
+            render json: user.errors
+        end
+    end
+    
+    def destroy
+        user = User.find(params[:id])
+        user.destroy
+        render json: user
     end
 
     def login
@@ -21,7 +36,7 @@ class UsersController < ApplicationController
         # byebug
         if user && user.authenticate(params[:password])
             token = encode_token({user_id: user.id})
-            render json: {user: user, token: token}, except: [:created_at, :updated_at]
+            render json: {user: user, token: token}
         else
             render json: {error: "Incorrect credentials, please try again."}
         end

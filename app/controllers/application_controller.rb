@@ -7,7 +7,6 @@ class ApplicationController < ActionController::API
     
     def auth_header
         request.headers['Authorization']
-        # byebug
     end
 
     def decoded_token
@@ -19,7 +18,6 @@ class ApplicationController < ActionController::API
                 nil
             end
         end
-        # byebug
     end
 
     def current_user
