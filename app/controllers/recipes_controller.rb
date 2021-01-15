@@ -1,26 +1,15 @@
 class RecipesController < ApplicationController
+    skip_before_action :authorized
 
     def index
         recipes = Recipe.all
-        render json: recipes.to_json(
-            :include => {
-                :ing_recipes => {
-                    :except => [:created_at, :updated_at]
-                }
-            }, 
-            :except => [:created_at, :updated_at]        
-        )
+        render json: recipes
+        
     end
 
     def create
         recipe = Recipe.create(recipe_params)
-        render json: recipe.to_json(
-            :include => {
-                :ing_recipes => {
-                    :except => [:created_at, :updated_at]
-                }
-            }
-        )
+        render json: recipe
     end
 
     private

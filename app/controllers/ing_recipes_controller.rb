@@ -1,5 +1,5 @@
 class IngRecipesController < ApplicationController
-    # serialize :quantity, Hash
+    skip_before_action :authorized
 
     def index
         ing_recipes = IngRecipe.all
