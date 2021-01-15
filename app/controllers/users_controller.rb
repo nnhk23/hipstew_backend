@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    skip_before_action :authorized, only: [:create, :login]
 
     def index
         users = User.all
@@ -24,6 +25,10 @@ class UsersController < ApplicationController
         else
             render json: {error: "Incorrect credentials, please try again."}
         end
+    end
+
+    def get_user
+        render json: {user: UserSerializer.new(current_user)}
     end
 
     private
