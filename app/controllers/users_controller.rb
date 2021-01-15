@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :authorized, only: [:create, :login, :update, :index]
+    skip_before_action :authorized, only: [:create, :login, :update, :index, :destroy]
 
     def index
         users = User.all
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     def destroy
         user = User.find(params[:id])
         user.destroy
-        # render json: user
+        render json: user
     end
 
     def login
