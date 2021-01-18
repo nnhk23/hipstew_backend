@@ -1,0 +1,2 @@
+class UserIngreController < ApplicationController
+end

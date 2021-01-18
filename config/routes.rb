@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :ing_recipes
+  resources :user_ingres
   resources :ingredients
   resources :user_recipes
   resources :recipes
@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   get "/getuser", to: "users#get_user"
   get "/getrecipe", to: 'spoonacular_api#show'
   get "/getrecipedetails", to: 'spoonacular_api#get_recipe'
+  get "/getrecipeinstruction", to: 'spoonacular_api#get_recipe_instruction'
 
 end

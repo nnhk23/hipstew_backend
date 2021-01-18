@@ -15,10 +15,9 @@ class SpoonacularApiController < ApplicationController
     end.join()
     # byebug
 
-    url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=#{API_KEY}&ingredients=#{ingredientString}&number=50"
+    url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=#{API_KEY}&ingredients=#{ingredientString}&number=20"
     
     response = HTTP.get(url)
-    byebug
     data = response.parse
     render json: data
 
@@ -27,6 +26,15 @@ class SpoonacularApiController < ApplicationController
   def get_recipe
 
     url = "https://api.spoonacular.com/recipes/#{params["id"]}/information?apiKey=#{API_KEY}"
+    response = HTTP.get(url)
+    data = response.parse
+    render json: data
+
+  end
+
+  def get_recipe_instruction
+
+    url = "https://api.spoonacular.com/recipes/extract?apiKey=#{API_KEY}&url=#{params["sourceUrl"]}&forceExtraction=true"
     response = HTTP.get(url)
     data = response.parse
     render json: data

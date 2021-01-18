@@ -3,8 +3,7 @@ class RecipesController < ApplicationController
 
     def index
         recipes = Recipe.all
-        render json: recipes
-        
+        render json: recipes      
     end
 
     def create
@@ -14,7 +13,7 @@ class RecipesController < ApplicationController
 
     private
     def recipe_params
-        params.require(:recipe).permit(:name, :img_url, :instruction, :time, :diet, :dish_type, :price_per_serving, :health_score)
+        params.permit(:name, :img_url, :recipe_id)
     end
 
 end
