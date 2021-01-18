@@ -13,7 +13,7 @@ class RecipesController < ApplicationController
 
     private
     def recipe_params
-        params.permit(:name, :img_url, :recipe_id)
+        params.permit(:name, :img_url, :recipe_id, :id)
     end
 
 end

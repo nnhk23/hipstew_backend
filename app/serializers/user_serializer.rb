@@ -4,6 +4,7 @@ class UserSerializer < ActiveModel::Serializer
   def user_recipes
     self.object.user_recipes.map do |user_recipe|
       {
+        id: user_recipe.recipe.id,
         name: user_recipe.recipe.name,
         img_url: user_recipe.recipe.img_url,
         recipe_id: user_recipe.recipe.recipe_id
