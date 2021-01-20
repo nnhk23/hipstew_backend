@@ -12,7 +12,7 @@ class UsersController < ApplicationController
             token = encode_token({user_id: user.id})
             render json: {user: user, token: token}
         else
-            render json: user.errors
+            render json: {error: "Username has already been taken. Please try again."}
         end
     end
 

@@ -2,30 +2,33 @@ require './lib/key.rb'
 
 class SpoonacularApiController < ApplicationController
   skip_before_action :authorized
+  BASE_URL='https://api.spoonacular.com'
 
   def show
     
     ingredientString = params["ingredients"].split(', ').map do |ing|
       if ing.include?(' ') 
         ing[' '] = '-' 
-      end
-      
+      end 
       ing + '%2C'
-      
     end.join()
-    # byebug
 
-    url = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=#{API_KEY}&ingredients=#{ingredientString}&number=20"
+    url = "#{BASE_URL}/recipes/findByIngredients?apiKey=#{API_KEY}&ingredients=#{ingredientString}&number=20"
     
     response = HTTP.get(url)
     data = response.parse
-    render json: data
+
+    if data.length === 0
+      render json: {error: "There is no recipe for #{params["ingredients"]}. Please try another search term."}
+    else
+      render json: data
+    end
 
   end
 
   def get_recipe
 
-    url = "https://api.spoonacular.com/recipes/#{params["id"]}/information?apiKey=#{API_KEY}"
+    url = "#{BASE_URL}/recipes/#{params["id"]}/information?apiKey=#{API_KEY}"
     response = HTTP.get(url)
     data = response.parse
     render json: data
@@ -34,11 +37,35 @@ class SpoonacularApiController < ApplicationController
 
   def get_recipe_instruction
 
-    url = "https://api.spoonacular.com/recipes/extract?apiKey=#{API_KEY}&url=#{params["sourceUrl"]}&forceExtraction=true"
+    url = "#{BASE_URL}/recipes/extract?apiKey=#{API_KEY}&url=#{params["sourceUrl"]}&forceExtraction=true"
     response = HTTP.get(url)
     data = response.parse
     render json: data
 
   end
+
+  def get_ingredients
+
+    url = "#{BASE_URL}/food/ingredients/search?apiKey=#{API_KEY}&query=#{params["ingredient"]}&number=24"
+    response = HTTP.get(url)
+    data = response.parse
+
+    if data["results"].length === 0
+      render json: {error: "There is no result for #{params["ingredient"]}. Please try another search term."}
+    else
+      render json: data
+    end
+
+  end
+
+  def get_5_random_recipes
+
+    url = "#{BASE_URL}/recipes/random?apiKey=#{API_KEY}&number=5"
+    response = HTTP.get(url)
+    data = response.parse
+    render json: data
+    
+  end
+  
 
 end

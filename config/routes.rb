@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   get "/getrecipe", to: 'spoonacular_api#show'
   get "/getrecipedetails", to: 'spoonacular_api#get_recipe'
   get "/getrecipeinstruction", to: 'spoonacular_api#get_recipe_instruction'
+  get "/getingredients", to: 'spoonacular_api#get_ingredients'
+  get "/getrandomrecipes", to: 'spoonacular_api#get_5_random_recipes'
 
 end
