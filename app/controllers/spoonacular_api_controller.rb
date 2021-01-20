@@ -58,4 +58,14 @@ class SpoonacularApiController < ApplicationController
 
   end
 
+  def get_5_random_recipes
+
+    url = "#{BASE_URL}/recipes/random?apiKey=#{API_KEY}&number=5"
+    response = HTTP.get(url)
+    data = response.parse
+    render json: data
+    
+  end
+  
+
 end
