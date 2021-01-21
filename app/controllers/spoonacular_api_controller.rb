@@ -13,7 +13,7 @@ class SpoonacularApiController < ApplicationController
       ing + '%2C'
     end.join()
 
-    url = "#{BASE_URL}/recipes/findByIngredients?apiKey=#{API_KEY}&ingredients=#{ingredientString}&number=20"
+    url = "#{BASE_URL}/recipes/findByIngredients?apiKey=#{API_KEY}&ingredients=#{ingredientString}&number=60"
     
     response = HTTP.get(url)
     data = response.parse
