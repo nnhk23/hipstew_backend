@@ -19,7 +19,8 @@ class UsersController < ApplicationController
     def update
         user = User.find(params[:id])
         if user.update(user_params)
-            render json: {user: user}
+            token = encode_token({user_id: user.id})
+            render json: {user: user, token: token}
         else
             render json: user.errors
         end
