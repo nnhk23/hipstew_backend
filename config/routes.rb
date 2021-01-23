@@ -12,5 +12,12 @@ Rails.application.routes.draw do
   get "/getrecipeinstruction", to: 'spoonacular_api#get_recipe_instruction'
   get "/getingredients", to: 'spoonacular_api#get_ingredients'
   get "/getrandomrecipes", to: 'spoonacular_api#get_5_random_recipes'
+  get "/complexrecipesearch", to: 'spoonacular_api#search_by_name_and_ingredients'
+  get '/foodtrivia', to: 'spoonacular_api#get_food_trivia' 
+  get '/foodjokes', to: 'spoonacular_api#get_food_jokes'
+  get '/quickanswer', to: 'spoonacular_api#get_quick_answer'
+
+  # get "/chatbotresult", to: 'duckduckgo#get_result'
+  get "/detectfood", to: 'spoonacular_chatbot#detect_food_in_text'
 
 end
