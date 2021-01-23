@@ -75,7 +75,10 @@ class SpoonacularApiController < ApplicationController
     end
     # byebug
 
-    url =  params["ingredient"] ? "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&includeIngredients=#{params["ingredients"]}&query=#{dish}" : "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&query=#{dish}"
+    url =  params["ingredient"] ? 
+      "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&includeIngredients=#{params["ingredients"]}&query=#{dish}&number=27" 
+      : 
+      "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&query=#{dish}&number=27"
     response = HTTP.get(url)
     data = response.parse
     render json: data
