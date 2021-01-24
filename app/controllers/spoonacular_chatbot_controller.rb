@@ -22,11 +22,7 @@ class SpoonacularChatbotController < ApplicationController
     end
 
     def get_quick_answer
-        # userInput = params["userInput"]
-        # if (params["userInput"].include?(' '))
-        #     userInput = params["userInput"].split(' ').join('-')
-        # end
-
+        
         url = URI("https://api.spoonacular.com/recipes/quickAnswer?apiKey=#{API_KEY}&q=#{params["userInput"]}")
 
         https = Net::HTTP.new(url.host, url.port)

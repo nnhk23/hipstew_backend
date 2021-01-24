@@ -74,12 +74,18 @@ class SpoonacularApiController < ApplicationController
       dish = params["dish"].split(' ').join('-')
     end
 
-    if (params["ingredient"])
-      ingredient = params["ingredient"].include?(' ') ? params["ingredient"].split(' ').join('-') : params["ingredient"]
+    if (params["ingredients"])
+      ingredients = params["ingredients"].include?(' ') ? params["ingredients"].split(' ').join('-') : params["ingredients"]
     end
-
-    url =  params["ingredient"] ? "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&includeIngredients=#{ingredient}&query=#{dish}&number=27" : "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&query=#{dish}&number=27"
     
+    if (params["ingredients"] && params["dish"].length != 0) 
+      url = "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&includeIngredients=#{ingredients}&query=#{dish}&number=27"
+    elsif (params["dish"].length != 0)
+      url = "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&query=#{dish}&number=27"
+    else
+      url = "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&includeIngredients=#{ingredients}&number=27"
+    end
+      
     response = HTTP.get(url)
     data = response.parse
     render json: data
