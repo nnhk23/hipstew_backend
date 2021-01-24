@@ -73,12 +73,13 @@ class SpoonacularApiController < ApplicationController
     if (params["dish"].include?(' '))
       dish = params["dish"].split(' ').join('-')
     end
-    # byebug
 
-    url =  params["ingredient"] ? 
-      "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&includeIngredients=#{params["ingredients"]}&query=#{dish}&number=27" 
-      : 
-      "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&query=#{dish}&number=27"
+    if (params["ingredient"])
+      ingredient = params["ingredient"].include?(' ') ? params["ingredient"].split(' ').join('-') : params["ingredient"]
+    end
+
+    url =  params["ingredient"] ? "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&includeIngredients=#{ingredient}&query=#{dish}&number=27" : "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&query=#{dish}&number=27"
+    
     response = HTTP.get(url)
     data = response.parse
     render json: data
@@ -91,7 +92,7 @@ class SpoonacularApiController < ApplicationController
     response = HTTP.get(url)
     data = response.parse
     render json: data
-    # byebug
+    
   end
 
   def get_food_trivia
@@ -100,16 +101,23 @@ class SpoonacularApiController < ApplicationController
     response = HTTP.get(url)
     data = response.parse
     render json: data
-    # byebug
-  end
-
-  def get_quick_answer
-    byebug
-    url = "#{BASE_URL}/recipes/quickAnswer?apiKey=#{API_KEY}&q=#{params["userInput"]}"
-    response = HTTP.get(url)
-    data = response.parse
-    render json: data
 
   end
+
+  # def get_quick_answer
+    
+  #   userInput = params["userInput"]
+  #   if (params["userInput"].include?(' '))
+  #     userInput = params["userInput"].split(' ').join('-')
+  #   end
+    
+  #   url = "#{BASE_URL}/recipes/quickAnswer?apiKey=#{API_KEY}&q=#{userInput}"
+  #   byebug
+  #   response = HTTP.get(url)
+  #   data = response.parse
+  #   byebug
+  #   render json: data
+
+  # end
 
 end
