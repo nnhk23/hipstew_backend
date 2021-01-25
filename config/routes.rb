@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "/complexrecipesearch", to: 'spoonacular_api#search_by_name_and_ingredients'
   get '/foodtrivia', to: 'spoonacular_api#get_food_trivia' 
   get '/foodjokes', to: 'spoonacular_api#get_food_jokes'
+  get '/getsubstitution', to: 'spoonacular_api#get_substitutions'
   
 
   # get "/chatbotresult", to: 'duckduckgo#get_result'

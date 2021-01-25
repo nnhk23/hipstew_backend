@@ -69,6 +69,8 @@ class SpoonacularApiController < ApplicationController
   
   def search_by_name_and_ingredients
 
+    url = "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}"
+
     dish = params["dish"]
     if (params["dish"].include?(' '))
       dish = params["dish"].split(' ').join('-')
@@ -79,11 +81,11 @@ class SpoonacularApiController < ApplicationController
     end
     
     if (params["ingredients"] && params["dish"].length != 0) 
-      url = "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&includeIngredients=#{ingredients}&query=#{dish}&number=27"
+      url += "&includeIngredients=#{ingredients}&query=#{dish}&number=27"
     elsif (params["dish"].length != 0)
-      url = "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&query=#{dish}&number=27"
+      url += "&query=#{dish}&number=27"
     else
-      url = "#{BASE_URL}/recipes/complexSearch?apiKey=#{API_KEY}&includeIngredients=#{ingredients}&number=27"
+      url += "&includeIngredients=#{ingredients}&number=27"
     end
       
     response = HTTP.get(url)
@@ -110,20 +112,19 @@ class SpoonacularApiController < ApplicationController
 
   end
 
-  # def get_quick_answer
-    
-  #   userInput = params["userInput"]
-  #   if (params["userInput"].include?(' '))
-  #     userInput = params["userInput"].split(' ').join('-')
-  #   end
-    
-  #   url = "#{BASE_URL}/recipes/quickAnswer?apiKey=#{API_KEY}&q=#{userInput}"
-  #   byebug
-  #   response = HTTP.get(url)
-  #   data = response.parse
-  #   byebug
-  #   render json: data
+  def get_substitutions
 
-  # end
+    url = "#{BASE_URL}/food/ingredients/substitutes?apiKey=#{API_KEY}&ingredientName=#{params["userInput"]}"
+    response = HTTP.get(url)
+    data = response.parse
+
+    if(data["status"] === 'failure')
+      render json: {error: data["message"]}
+    else
+      render json: data
+    end
+    
+    
+  end
 
 end
