@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   get '/getsubstitution', to: 'spoonacular_api#get_substitutions'
   
 
-  # get "/chatbotresult", to: 'duckduckgo#get_result'
   get "/detectfood", to: 'spoonacular_chatbot#detect_food_in_text'
   get '/quickanswer', to: 'spoonacular_chatbot#get_quick_answer'
 
