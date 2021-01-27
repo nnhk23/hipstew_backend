@@ -44,8 +44,13 @@ class SpoonacularApiController < ApplicationController
   end
 
   def get_ingredients
+    if params["ingredient"].include?(' ') 
+      ingredientString = (params["ingredient"][' '] = '-') 
+    else
+      ingredientString = params["ingredient"]
+    end 
 
-    url = "#{BASE_URL}/food/ingredients/search?apiKey=#{API_KEY}&query=#{params["ingredient"]}&number=24"
+    url = "#{BASE_URL}/food/ingredients/search?apiKey=#{API_KEY}&query=#{ingredientString}&number=27"
     response = HTTP.get(url)
     data = response.parse
 
