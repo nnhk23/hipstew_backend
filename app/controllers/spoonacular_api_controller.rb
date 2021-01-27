@@ -50,7 +50,7 @@ class SpoonacularApiController < ApplicationController
       ingredientString = params["ingredient"]
     end 
 
-    url = "#{BASE_URL}/food/ingredients/search?apiKey=#{API_KEY}&query=#{ingredientString}&number=24"
+    url = "#{BASE_URL}/food/ingredients/search?apiKey=#{API_KEY}&query=#{ingredientString}&number=27"
     response = HTTP.get(url)
     data = response.parse
 
